@@ -6,4 +6,4 @@ echo -e "Connection: close\r"
 echo -e "\r"
 echo -e "Received request"
 
-bash /home/defendershow/bot/deploy/webhook.sh
+bash /home/defendershow/support-bot/deploy/webhook.sh
