@@ -7,7 +7,13 @@ from telegram.ext import (
 )
 import os
 from handlers import (
+    CONTACT,
+    HELP,
+    QUESTION,
     START,
+    contact_collect_info,
+    help_collect_info,
+    question_collect_info,
     start,
     menu_buttons,
     cancel
@@ -22,11 +28,14 @@ def main():
     dp = updater.dispatcher
 
     start_handler = ConversationHandler(
-        entry_points = [CommandHandler('start', start)],
-        states = {
-            START: [MessageHandler(Filters.text & ~Filters.command, menu_buttons)]
+        entry_points=[CommandHandler('start', start)],
+        states={
+            START: [MessageHandler(Filters.text & ~Filters.command, menu_buttons)],
+            HELP: [MessageHandler(Filters.text & ~Filters.command, help_collect_info)],
+            QUESTION: [MessageHandler(Filters.text & ~Filters.command, question_collect_info)],
+            CONTACT: [MessageHandler(Filters.text & ~Filters.command, contact_collect_info)]
         },
-        fallbacks = [CommandHandler('cancel', cancel)]
+        fallbacks=[CommandHandler('cancel', cancel)]
     )
 
     dp.add_handler(start_handler)
