@@ -68,7 +68,9 @@ def menu_buttons(update: Update, context: CallbackContext):
         return cancel(update, context)
     else:
         logger.warning(f"Unknown button text: {text}")
-        return None
+
+        update.message.reply_text(texts['invalid_goal']['english'], parse_mode="Markdown")
+        return START
 
 def cancel(update: Update, context: CallbackContext):
     logger.info("cancel called")
@@ -93,10 +95,14 @@ def help_collect_info(update: Update, context: CallbackContext):
     username = update.message.from_user.username
     problem_info = update.message.text
     
-    message = f"User ID: {user_id}\nUsername: {username}\nProblem: {problem_info}"
-    context.bot.send_message(chat_id=supports["suppport1"], text=message)
+    if problem_info:
+        message = f"User ID: {user_id}\nUsername: {username}\nProblem: {problem_info}"
+        context.bot.send_message(chat_id=supports["suppport1"], text=message)
+        
+        update.message.reply_text(texts['help_thanks']['english'], parse_mode="Markdown")
     
-    update.message.reply_text(texts['help_thanks']['english'], parse_mode="Markdown")
+    else:
+        update.message.reply_text(texts['invalid_text']['english'], parse_mode="Markdown")
     
     return START
 
@@ -114,11 +120,15 @@ def question_collect_info(update: Update, context: CallbackContext):
     username = update.message.from_user.username
     question_info = update.message.text
     
-    message = f"User ID: {user_id}\nUsername: {username}\nQuestion: {question_info}"
-    context.bot.send_message(chat_id=supports["suppport1"], text=message)
-    
-    update.message.reply_text(texts['question_thanks']['english'], parse_mode="Markdown")
-    
+    if question_info:
+        message = f"User ID: {user_id}\nUsername: {username}\nQuestion: {question_info}"
+        context.bot.send_message(chat_id=supports["suppport1"], text=message)
+        
+        update.message.reply_text(texts['question_thanks']['english'], parse_mode="Markdown")
+
+    else:
+        update.message.reply_text(texts['invalid_text']['english'], parse_mode="Markdown")
+
     return START
 
 def contact(update: Update, context: CallbackContext):
@@ -135,9 +145,13 @@ def contact_collect_info(update: Update, context: CallbackContext):
     username = update.message.from_user.username
     contact_info = update.message.text
     
-    message = f"User ID: {user_id}\nUsername: {username}\nContact Info: {contact_info}"
-    context.bot.send_message(chat_id=supports["suppport1"], text=message)
+    if contact_info:
+        message = f"User ID: {user_id}\nUsername: {username}\nContact Info: {contact_info}"
+        context.bot.send_message(chat_id=supports["suppport1"], text=message)
+        
+        update.message.reply_text(texts['contact_thanks']['english'], parse_mode="Markdown")
     
-    update.message.reply_text(texts['contact_thanks']['english'], parse_mode="Markdown")
-    
+    else:
+        update.message.reply_text(texts['invalid_text']['english'], parse_mode="Markdown")
+        
     return START

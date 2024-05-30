@@ -30,8 +30,16 @@
     "contact": {
         "english": "Please provide your contact information or any message you'd like to send to the developer."
     },
-    
+
     "contact_thanks": {
         "english": "Thank you for contacting us. We will get back to you soon."
+    },
+
+    "invalid_goal": {
+        "english": "Please select the goal of the request!"
+    },
+
+    "invalid_text": {
+        "english": "Please write only text!"
     }
 }
