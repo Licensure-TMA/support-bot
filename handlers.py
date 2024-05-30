@@ -39,7 +39,7 @@ def start(update: Update, context: CallbackContext) -> int:
 def menu_generator(update: Update, context: CallbackContext):
     logger.info('menu_generator called')
 
-    keyboard = [['🆘I need help'], ['❓I have a question'], ['📲I want to contact you'], ['🛑Stop']]
+    keyboard = [['🆘I need help'], ['❓I have a question']], [['📲I want to contact you'], ['🛑Stop']]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True, one_time_keyboard=False)
     text = texts['for_menu']['english']
 
