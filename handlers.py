@@ -153,3 +153,10 @@ def handle_invalid_message(update: Update, context: CallbackContext):
     update.message.reply_text(texts['invalid_text']['english'], parse_mode="Markdown")
     
     return START
+
+def handle_invalid_goal(update: Update, context: CallbackContext):
+    logger.info("handle_invalid_message called")
+    
+    update.message.reply_text(texts['invalid_goal']['english'], parse_mode="Markdown")
+    
+    return START

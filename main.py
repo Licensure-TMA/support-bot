@@ -17,7 +17,8 @@ from handlers import (
     start,
     menu_buttons,
     cancel,
-    handle_invalid_message
+    handle_invalid_message,
+    handle_invalid_goal
 )
 
 def load_token_from_config():
@@ -31,7 +32,8 @@ def main():
     start_handler = ConversationHandler(
         entry_points=[CommandHandler('start', start)],
         states={
-            START: [MessageHandler(Filters.text & ~Filters.command, menu_buttons)],
+            START: [MessageHandler(Filters.text & ~Filters.command, menu_buttons),
+                    MessageHandler(~Filters.text & ~Filters.command, handle_invalid_goal)],
             HELP: [
                 MessageHandler(Filters.text & ~Filters.command, help_collect_info),
                 MessageHandler(~Filters.text & ~Filters.command, handle_invalid_message)
