@@ -16,7 +16,8 @@ from handlers import (
     question_collect_info,
     start,
     menu_buttons,
-    cancel
+    cancel,
+    handle_invalid_message
 )
 
 def load_token_from_config():
@@ -31,9 +32,18 @@ def main():
         entry_points=[CommandHandler('start', start)],
         states={
             START: [MessageHandler(Filters.text & ~Filters.command, menu_buttons)],
-            HELP: [MessageHandler(Filters.text & ~Filters.command, help_collect_info)],
-            QUESTION: [MessageHandler(Filters.text & ~Filters.command, question_collect_info)],
-            CONTACT: [MessageHandler(Filters.text & ~Filters.command, contact_collect_info)]
+            HELP: [
+                MessageHandler(Filters.text & ~Filters.command, help_collect_info),
+                MessageHandler(~Filters.text & ~Filters.command, handle_invalid_message)
+            ],
+            QUESTION: [
+                MessageHandler(Filters.text & ~Filters.command, question_collect_info),
+                MessageHandler(~Filters.text & ~Filters.command, handle_invalid_message)
+            ],
+            CONTACT: [
+                MessageHandler(Filters.text & ~Filters.command, contact_collect_info),
+                MessageHandler(~Filters.text & ~Filters.command, handle_invalid_message)
+            ]
         },
         fallbacks=[CommandHandler('cancel', cancel)]
     )

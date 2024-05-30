@@ -101,9 +101,6 @@ def help_collect_info(update: Update, context: CallbackContext):
         
         update.message.reply_text(texts['help_thanks']['english'], parse_mode="Markdown")
     
-    else:
-        update.message.reply_text(texts['invalid_text']['english'], parse_mode="Markdown")
-    
     return START
 
 def question(update: Update, context: CallbackContext):
@@ -126,9 +123,6 @@ def question_collect_info(update: Update, context: CallbackContext):
         
         update.message.reply_text(texts['question_thanks']['english'], parse_mode="Markdown")
 
-    else:
-        update.message.reply_text(texts['invalid_text']['english'], parse_mode="Markdown")
-
     return START
 
 def contact(update: Update, context: CallbackContext):
@@ -150,8 +144,12 @@ def contact_collect_info(update: Update, context: CallbackContext):
         context.bot.send_message(chat_id=supports["suppport1"], text=message)
         
         update.message.reply_text(texts['contact_thanks']['english'], parse_mode="Markdown")
-    
-    else:
-        update.message.reply_text(texts['invalid_text']['english'], parse_mode="Markdown")
         
+    return START
+
+def handle_invalid_message(update: Update, context: CallbackContext):
+    logger.info("handle_invalid_message called")
+    
+    update.message.reply_text(texts['invalid_text']['english'], parse_mode="Markdown")
+    
     return START
